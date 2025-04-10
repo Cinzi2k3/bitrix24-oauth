@@ -24,20 +24,27 @@ exports.handleCallback = async (req, res) => {
   }
 };
 
-// Xử lý cài đặt ứng dụng trên Bitrix24
 exports.bitrixInstallHandler = async (req, res) => {
+  const { code, reinstall } = req.query;
+  if (code) {
+    return res.redirect('/api/callback?' + new URLSearchParams(req.query).toString());
+  } 
   try {
     const { DOMAIN, APP_SID } = req.query;
     await fs.writeFile('bitrix-config.json', JSON.stringify({
       domain: DOMAIN,
       appSid: APP_SID,
-      installedAt: new Date().toISOString()
+      installedAt: new Date().toISOString(),
+      lastUpdated: new Date().toISOString()
     }, null, 2));
     res.send(`
-      <html><body><p>Ứng dụng đã được cài đặt thành công</p></body></html>
+      <h1>App ${reinstall ? 'Reinstalled' : 'Installed'} Successfully</h1>
+      <p>Configuration saved</p>
     `);
   } catch (error) {
-    console.error('Lỗi xử lý cài đặt:', error);
-    res.status(500).send('Lỗi cài đặt ứng dụng');
+    console.error('Installation error:', error);
+    res.status(500).send('<h1>Installation failed</h1>');
   }
 };
+
+

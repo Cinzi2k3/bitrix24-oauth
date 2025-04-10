@@ -37,11 +37,17 @@ Bước 3 : Khởi chạy backend với node.js
 + BITRIX_DOMAIN : Đường dẫn bitrix của bạn 'yourname.bitrix24.vn'
 + PORT = 3000 : Cổng chạy backend tuỳ chỉnh nhưng phải khớp với cổng chạy ngok
 
-Bước 4 : Tạo các file và code xử lí -> Trong dự án back end BITRIX24-OAUTH -> Chạy backend trên cổng 3000
+Bước 4a : Tạo các file và code xử lí -> Trong dự án back end BITRIX24-OAUTH -> Chạy backend trên cổng 3000
+
+Bước 4b : Tich hợp ngrok vào backend để khi chạy backend thì sẽ start a tunnel cho ngrok luôn và lưu đường dẫn mà ngrok cung cấp và dùng cho bước 2
 
 Bước 5 : Truy cập http://localhost:3000/install để cài đặt ứng dụng -> Chuyển hướng người dùng đến trang xác thực OAuth để lấy code -> Chuyển hướng tới trang http://localhost:3000/callback -> Nhận code từ query khi người dùng xác thực -> Gửi POST request đến Bitrix24 để đổi code lấy access_token và refresh_token -> Lưu token vào file token.json và thông báo thành công -> Nếu token hết hạn -> Lấy token hiện tại từ file -> Gửi request POST đến https://oauth.bitrix.info/oauth/token với refresh_token -> Lưu token mới vào file và trả về access_token
 
 Bước 6 : Truy cập http://localhost:3000/test-api để gọi API bất kì với token đang có
+
+Bước 7 : Khi nhấn reinstall thì ứng dụng cài đặt lại và mọi thay đổi được lưu vào file bitrix-config.json
+
+
 
                                          - HẾT BÀI 1 - 
 
